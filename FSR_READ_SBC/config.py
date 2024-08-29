@@ -1,0 +1,5 @@
+SOCKET_HOST = "0.0.0.0"    # Server IP
+SOCKET_PORT = 12345        # Port
+
+SENSOR_X_MAX = 8
+SENSOR_Y_MAX = 8

@@ -6,8 +6,8 @@ int read_mcp3208_adc(unsigned char adcChannel)
         unsigned char buff[3];
         int adcValue = 0;
 
-        // buff[0] = 0x06 | ((adcChannel & 0x07) >> 2);
-        buff[0] = 0x06 | ((adcChannel & 0x07) >> 7);
+        buff[0] = 0x06 | ((adcChannel & 0x07) >> 2);
+        // buff[0] = 0x06 | ((adcChannel & 0x07) >> 7);
         buff[1] = ((adcChannel & 0x07) << 6);
         buff[2] = 0x00;
 
