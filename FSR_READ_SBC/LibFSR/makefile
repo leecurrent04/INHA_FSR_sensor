@@ -9,8 +9,7 @@ link :
 run :
 	./out/main.out
 lib:
-	gcc -c -o ./out/main_lib.o main_lib.c -lwiringPi
-	gcc -shared out/main_lib.o out/object/*.o -lwiringPi -o libfsr.so
+	gcc -shared out/object/*.o -lwiringPi -o libfsr.so
 test:
 	gcc test.c -L. -l fsr -o ./out/test.out
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.

@@ -11,20 +11,14 @@ img = np.zeros(
         dtype=np.uint8
         )
 
-sensor_data = np.zeros(
-        shape=(
-            SENSOR_X_MAX*IMG_PIXEL_SIZE,
-            SENSOR_Y_MAX*IMG_PIXEL_SIZE
-            ),
-        dtype=np.uint8
-        )
-
-def makeImg():
+def makeImg(fsr_matrix):
 	for y in range(SENSOR_Y_MAX):
 		for x in range(SENSOR_X_MAX):
+			color = 255 if fsr_matrix[x][y]>255 else fsr_matrix[x][y]
+
 			cv2.rectangle(img, 
-						  (x*IMG_PIXEL_SIZE,y*IMG_PIXEL_SIZE),
-						  ((x+1)*IMG_PIXEL_SIZE, (y+1)*IMG_PIXEL_SIZE),
-						  float((x*y)%256.0),		# SENSOR DATA
+						  (y*IMG_PIXEL_SIZE,x*IMG_PIXEL_SIZE),
+						  ((y+1)*IMG_PIXEL_SIZE, (x+1)*IMG_PIXEL_SIZE),
+						  int(color),		# SENSOR DATA
 						  -1
 						  )

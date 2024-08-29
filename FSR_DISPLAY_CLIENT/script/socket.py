@@ -14,7 +14,8 @@ class SocketTel:
 
 	def receive(self):
 		response = self.client_socket.recv(1024).decode("utf-8")
-		print(f"서버 : {response}\n")
+		return response
+		# print(f"서버 : {response}\n")
 
 	def close(self):
 		self.client_socket.close()

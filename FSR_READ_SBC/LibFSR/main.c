@@ -8,20 +8,21 @@
 
 int main()
 {
-	int adcChannel = 0;
+	uint8_t adcChannel = 0;
 	init();
 	//off();
 	on();
+	uint16_t value[SENSOR_SIZE_X][SENSOR_SIZE_Y];
 
 	while(1)
 	{
-		for(int y=0; y<SENSOR_SIZE_Y; y++)
+		getData(adcChannel, value);
+		for(uint8_t y=0; y<SENSOR_SIZE_Y; y++)
 		{
-			muxOutSet(y);
-			for(int x=0; x<SENSOR_SIZE_X; x++)
+			for(uint8_t x=0; x<SENSOR_SIZE_X; x++)
 			{
-				muxInSet(x);
-				printf("%04d ", read_mcp3208_adc(adcChannel));
+				// printf("%04d ", read_mcp3208_adc(adcChannel));
+				printf("%04d ", value[x][y]);
 			}
 			printf("\n");
 		}
