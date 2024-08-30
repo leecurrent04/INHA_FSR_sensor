@@ -1,11 +1,10 @@
 import cv2
 import numpy as np
 
-from script.config import *
-from script.MAIN_H import *
 from script import socket
-from script.filter import setMAFilter
-from script.filter import setLPFilter
+from script.config import *
+from script.displayImg import *
+from script.filter import *
 
 sc = socket.SocketTel()
 
@@ -31,14 +30,22 @@ while cv2.waitKey(33) != ord('q'):
 	fsr_value = np.transpose(fsr_value)
 	
 	#저주파 통과 필터 적용
-	fsr_value_filter = setLPFilter(fsr_value,0.25) 
+	fsr_value_filter1 = setLPFilter(fsr_value,0.10) 
+	fsr_value_filter2 = setLPFilter(fsr_value,0.30) 
+	fsr_value_filter3 = setLPFilter(fsr_value,0.50) 
+	fsr_value_filter4 = setLPFilter(fsr_value,0.70) 
 	
 	img_original = makeImg(fsr_value)
-	img_LPF = makeImg(fsr_value_filter)
+	img_LPF1 = makeImg(fsr_value_filter1)
+	img_LPF2 = makeImg(fsr_value_filter2)
+	img_LPF3 = makeImg(fsr_value_filter3)
+	img_LPF4 = makeImg(fsr_value_filter4)
 	
 	cv2.imshow('img', img_original)
-	cv2.imshow('img_filter', img_LPF)
-	#cv2.imshow('img diff', img_original-img_LPF)
+	cv2.imshow('img_filter 0.1', img_LPF1)
+	cv2.imshow('img_filter 0.3', img_LPF2)
+	cv2.imshow('img_filter 0.5', img_LPF3)
+	cv2.imshow('img_filter 0.7', img_LPF4)
 
 	#print(np.max(fsr_value))
 

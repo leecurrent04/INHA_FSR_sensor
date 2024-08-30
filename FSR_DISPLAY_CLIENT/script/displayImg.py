@@ -15,8 +15,8 @@ def makeImg(fsr_matrix):
 	
 	for y in range(SENSOR_Y_MAX):
 		for x in range(SENSOR_X_MAX):
-			color = fsr_matrix[x][y]*0.415
-			#color = 255 if fsr_matrix[x][y]>255 else fsr_matrix[x][y]
+			color = fsr_matrix[x][y] * IMG_RANGE_ADJUSTMENT_FACTOR
+			color = 255 if color>255 else color
 
 			cv2.rectangle(img, 
 						  (x*IMG_PIXEL_SIZE,y*IMG_PIXEL_SIZE),

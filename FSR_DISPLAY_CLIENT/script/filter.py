@@ -2,7 +2,8 @@ from script.config import *
 from static_vars import static_vars
 import numpy as np
 
-def setMAFilter(fsr_matrix): #이동편균 필터
+#이동평균 필터
+def setMAFilter(fsr_matrix): 
 
 	#analogValue = [[[0 for col in range(SENSOR_Y_MAX)] for row in range(SENSOR_X_MAX)] for depth in range(20)] # 3차원 빈 리스트 생성
 	#FilterTotal = [[0 for col in range(SENSOR_Y_MAX)] for row in range(SENSOR_X_MAX)]  #2차원 배열
@@ -26,19 +27,19 @@ def setMAFilter(fsr_matrix): #이동편균 필터
  
 	return FilterAver
 
-@static_vars(xLPF=np.zeros((SENSOR_X_MAX, SENSOR_Y_MAX)), counter=0)
-def setLPFilter(fsr_matrix, alpha=0.7): #저주파 통과필터
 
-	# prevValue = [[0 for col in range(SENSOR_Y_MAX)] for row in range(SENSOR_X_MAX)] #직전 추정값 초기화
-	# xLPF = [[0 for col in range(SENSOR_Y_MAX)] for row in range(SENSOR_X_MAX)] #현재 추정값
-	
-	# xLPF = np.zeros((SENSOR_X_MAX, SENSOR_Y_MAX))
+#저주파 통과 필터 (Low Pass Filter)
+@static_vars(xLPF=np.zeros((SENSOR_X_MAX, SENSOR_Y_MAX)), counter=0)
+def setLPFilter(fsr_matrix, alpha=0.7): 
+
+	# When first run
 	if setLPFilter.counter == 0:
 		setLPFilter.xLPF = fsr_matrix
 		setLPFilter.counter+=1
-		print(setLPFilter.counter)
+
 	else:
-		setLPFilter.xLPF = alpha*setLPFilter.xLPF+(1-alpha)*(fsr_matrix) #저주파 통과 필터값
+		#저주파 통과 필터값
+		setLPFilter.xLPF = alpha*setLPFilter.xLPF+(1-alpha)*(fsr_matrix) 
 				
 	return setLPFilter.xLPF
 					
