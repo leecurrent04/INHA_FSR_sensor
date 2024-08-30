@@ -17,8 +17,8 @@ def makeImg(fsr_matrix):
 			color = 255 if fsr_matrix[x][y]>255 else fsr_matrix[x][y]
 
 			cv2.rectangle(img, 
-						  (y*IMG_PIXEL_SIZE,x*IMG_PIXEL_SIZE),
-						  ((y+1)*IMG_PIXEL_SIZE, (x+1)*IMG_PIXEL_SIZE),
+						  (x*IMG_PIXEL_SIZE,y*IMG_PIXEL_SIZE),
+						  ((x+1)*IMG_PIXEL_SIZE, (y+1)*IMG_PIXEL_SIZE),
 						  int(color),		# SENSOR DATA
 						  -1
 						  )
