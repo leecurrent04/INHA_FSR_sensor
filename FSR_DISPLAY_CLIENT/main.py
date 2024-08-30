@@ -4,6 +4,8 @@ import numpy as np
 from script.config import *
 from script.MAIN_H import *
 from script import socket
+from script.filter import setMAFilter
+from script.filter import setLPFilter
 
 sc = socket.SocketTel()
 
@@ -22,6 +24,7 @@ while cv2.waitKey(33) != ord('q'):
 			).reshape(SENSOR_Y_MAX,SENSOR_X_MAX)
 
 	fsr_value = np.transpose(fsr_value)
+	fsr_value = setLPFilter(fsr_value)
 
 	makeImg(fsr_value)
 	cv2.imshow('img', img)
