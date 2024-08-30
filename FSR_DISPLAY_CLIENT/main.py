@@ -1,30 +1,31 @@
 import cv2
 import numpy as np
 
-from script.config import *
-from script.MAIN_H import *
 from script import socket
+from script.config import *
+from script.displayImg import *
+from script.filter import *
 
 sc = socket.SocketTel()
 
 while cv2.waitKey(33) != ord('q'):
-	sc.send("0,1,2")
+	# request fsr data
+	sc.requestFsr(SELECTED_FSR)
 
-	fsr1 = sc.receive()
-	fsr2 = sc.receive()
-	fsr3 = sc.receive()
-	fsr = fsr1[:-1]+","+fsr2[:-1]+","+fsr3
-
-	fsr_value = np.fromstring(
-			fsr,
-			dtype=np.uint16,
-			sep=','
-			).reshape(SENSOR_Y_MAX,SENSOR_X_MAX)
-
+	# get fsr data
+	fsr_value = sc.getFsr(SELECTED_FSR)
 	fsr_value = np.transpose(fsr_value)
+	
+	#저주파 통과 필터 적용
+	fsr_value_filter = setLPFilter(fsr_value, 0.3) 
+	
+	img_original = makeImg(fsr_value)
+	img_LPF = makeImg(fsr_value_filter)
 
-	makeImg(fsr_value)
-	cv2.imshow('img', img)
+	cv2.imshow('img', img_original)
+	cv2.imshow('LPF', img_LPF)
+
+	#print(np.max(fsr_value))
 
 sc.send("CLOSE")
 sc.close()
