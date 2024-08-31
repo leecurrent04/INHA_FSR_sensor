@@ -1,5 +1,6 @@
 import cv2
-import numpy as np
+import numpy as np 
+
 
 from script import socket
 from script.config import *
@@ -21,11 +22,14 @@ while cv2.waitKey(33) != ord('q'):
 	
 	img_original = makeImg(fsr_value)
 	img_LPF = makeImg(fsr_value_filter)
+	
+	img_bilateral = cv2.bilateralFilter(img_original, -1, 10, 5)
 
 	cv2.imshow('img', img_original)
 	cv2.imshow('LPF', img_LPF)
+	cv2.imshow('Gaussian', img_bilateral)
 
-	#print(np.max(fsr_value))
+	print(np.max(fsr_value))
 
 sc.send("CLOSE")
 sc.close()

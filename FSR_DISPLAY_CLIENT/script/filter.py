@@ -2,6 +2,7 @@ from script.config import *
 from static_vars import static_vars
 import numpy as np
 
+
 #이동평균 필터
 def setMAFilter(fsr_matrix): 
 
@@ -44,28 +45,4 @@ def setLPFilter(fsr_matrix, alpha=0.7):
 	return setLPFilter.xLPF
 					
 
-def setGaussianFilter(size, sigma):
-	#중심에서부터의 거리 계산
-	array = np.arange((size//2)*(-1), (size//2)+1)
-	
-	
-	#x^2+y^2 배열 초기화
-	xx_yy_array = np.zeros((size, size))
-	
-	for x in range(size):
-		for y in range(size):
-			#중심에서부터의 거리를 제곱합으로 계산
-			xx_yy_array[x,y] = array[x]**2+array[y]**2
-	
-	# 필터 초기화
-	Gaussian_filter = np.zeros((size, size))#size X size 형태의 2차원 배열
-	
-	for x in range(size):
-		for y in range(size):
-			# 수학적 수식 구현부
-			Gaussian_filter[x,y] = 1 / (2 * np.pi * sigma**2) * np.exp(-xx_yy_array[x,y]/(2 * sigma**2))
-	
-	# Scaling
-	Gaussian_threshold = Gaussian_filter.sum()/ size*size
-	
-	return Gaussian_threshold
+
