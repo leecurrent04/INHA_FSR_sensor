@@ -1,6 +1,7 @@
 from script.config import *
 from static_vars import static_vars
 import numpy as np
+import cv2
 
 
 #이동평균 필터
@@ -45,4 +46,18 @@ def setLPFilter(fsr_matrix, alpha=0.7):
 	return setLPFilter.xLPF
 					
 
+def Bilateral_Filter(img_name): #양방향 필터, 경계선이 흐려지는 문제를 해결
 
+	img_before = cv2.imread('img_name')
+
+	kernel_size = 9 #커널 크기
+	sigmaColor = 75 # 색공간 표준편차, 값이 크면 색이 많이 달라도 서로 영향을 줌 
+	sigmaSpace = 75 # 거리공간 표준편차, 값이 크면 멀리 있는 픽셀들이 서로 영향을 미침
+
+	img_after = cv2.bilateralFilter(img_before, kernel_size, sigmaColor, sigmaSpace)
+
+	return img_after
+	
+
+def Averaging(img_name):
+	
