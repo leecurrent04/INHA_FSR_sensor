@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import os
 
 from script.config import *
 from script import socket
@@ -8,25 +9,40 @@ from script.filter import *
 
 sc = socket.SocketTel()
 
-while cv2.waitKey(33) != ord('q'):
+# Save directory
+save_num = 0
+save_path = "./%s"%(
+	str(input("INPUT DIRECTORY NAME : "))
+	)
+
+if not os.path.isdir(save_path):
+	os.mkdir(save_path)
+
+while 1:
+
 	# request fsr data
 	sc.requestFsr(SELECTED_FSR)
 
 	# get fsr data
 	fsr_value = sc.getFsr(SELECTED_FSR)
 	fsr_value = np.transpose(fsr_value)
+
+	# show max value
+	print(np.max(fsr_value))
 	
-	#저주파 통과 필터 적용
-	fsr_value_filter = setLPFilter(fsr_value, 0.3) 
-	
+	# adjust 8bit image
 	img_original = dp.makeImg(fsr_value)
-	img_LPF = dp.makeImg(fsr_value_filter)
 
 	cv2.imshow('img', img_original)
-	cv2.imshow('LPF', img_LPF)
 
-	#print(np.max(fsr_value))
+	key = cv2.waitKey()
+	if key == ord('q'): break
+	elif key == ord('f'): continue
+	elif key == ord('s'):
+		cv2.imwrite("%s/%04d.png"%(save_path, save_num), img_original)
+		save_num+=1
 
 sc.send("CLOSE")
 sc.close()
 cv2.destroyAllWindows()
+

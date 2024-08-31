@@ -1,6 +1,7 @@
 # main
 SOCKET_ADDRESS = "192.168.0.133"
 SOCKET_PORT = 12345
+
 SELECTED_FSR = [2,1,0]
 
 # global
