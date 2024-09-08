@@ -1,10 +1,17 @@
 import cv2
 import numpy as np
 
+import tensorflow as tf
+from tensorflow import keras
+
 from script.config import *
 from script import socket
 from script import displayImg as dp
 from script.filter import *
+
+model = tf.keras.models.load_model("./img/my_model.keras")
+class_names = ['BOTH', 'Four', 'LEFT', 'LLR', 'LRR', 'RIGHT']
+
 
 sc = socket.SocketTel()
 
@@ -24,6 +31,27 @@ while cv2.waitKey(33) != ord('q'):
 
 	cv2.imshow('img', img_original)
 	cv2.imshow('LPF', img_LPF)
+
+	if np.amax(img_original) < 100:
+		print("NONE")
+	else:
+		img_array = tf.keras.utils.img_to_array(np.transpose(fsr_value))
+		img_array = tf.expand_dims(img_array, 0) # Create a batch
+
+		predictions = model.predict(img_array)
+		score = tf.nn.softmax(predictions[0])
+
+		print(
+			"%02.2f %02.2f"%(
+				score[class_names.index("LEFT")]+score[class_names.index("RIGHT")]+score[class_names.index("BOTH")],
+				score[class_names.index("LRR")]+score[class_names.index("LLR")]+score[class_names.index("Four")]
+				)
+			)
+		#print(
+			#"This image most likely belongs to {} with a {:.2f} percent confidence."
+			#.format(class_names[np.argmax(score)], 100 * np.max(score))
+		#)
+
 
 	#print(np.max(fsr_value))
 

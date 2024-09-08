@@ -11,7 +11,7 @@ sc = socket.SocketTel()
 
 # Save directory
 save_num = 0
-save_path = "./%s"%(
+save_path = "./img/%s"%(
 	str(input("INPUT DIRECTORY NAME : "))
 	)
 
@@ -28,7 +28,7 @@ while 1:
 	fsr_value = np.transpose(fsr_value)
 
 	# show max value
-	print(np.max(fsr_value))
+	#print(np.max(fsr_value))
 	
 	# adjust 8bit image
 	img_original = dp.makeImg(fsr_value)
@@ -37,9 +37,10 @@ while 1:
 
 	key = cv2.waitKey()
 	if key == ord('q'): break
-	elif key == ord('f'): continue
+	elif key == ord('r'): continue
 	elif key == ord('s'):
 		cv2.imwrite("%s/%04d.png"%(save_path, save_num), img_original)
+		print("%s Saved"%save_num)
 		save_num+=1
 
 sc.send("CLOSE")
