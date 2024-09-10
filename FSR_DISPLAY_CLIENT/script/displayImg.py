@@ -4,17 +4,17 @@ import numpy as np
 import cv2
 
 
-def makeImg(fsr_matrix):
+def makeImg(fsr_matrix,x_max=SENSOR_X_MAX,y_max=SENSOR_Y_MAX):
 	img = np.zeros(
         shape=(
-            SENSOR_Y_MAX*IMG_PIXEL_SIZE,
-            SENSOR_X_MAX*IMG_PIXEL_SIZE 
+            y_max*IMG_PIXEL_SIZE,
+            x_max*IMG_PIXEL_SIZE 
             ),
         dtype=np.uint8
         )
 	
-	for y in range(SENSOR_Y_MAX):
-		for x in range(SENSOR_X_MAX):
+	for y in range(y_max):
+		for x in range(x_max):
 			color = fsr_matrix[x][y] * IMG_RANGE_ADJUSTMENT_FACTOR
 			color = 255 if color>255 else color
 

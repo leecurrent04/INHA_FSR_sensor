@@ -14,14 +14,19 @@ class_names = ['BOTH', 'Four', 'LEFT', 'LLR', 'LRR', 'RIGHT']
 
 
 sc = socket.SocketTel()
+sc2 = socket.SocketTel("192.168.0.5", 12346)
 
 while cv2.waitKey(33) != ord('q'):
 	# request fsr data
 	sc.requestFsr(SELECTED_FSR)
+	sc2.requestFsr([3])
 
 	# get fsr data
 	fsr_value = sc.getFsr(SELECTED_FSR)
 	fsr_value = np.transpose(fsr_value)
+
+	fsr_value_hand = sc2.getFsr([3], 8, 8)
+	fsr_value_hand = np.transpose(fsr_value_hand)
 	
 	#저주파 통과 필터 적용
 	fsr_value_filter = setLPFilter(fsr_value, 0.3) 
@@ -29,8 +34,12 @@ while cv2.waitKey(33) != ord('q'):
 	img_original = dp.makeImg(fsr_value)
 	img_LPF = dp.makeImg(fsr_value_filter)
 
+	img_hand = dp.makeImg(fsr_value_hand, 8,8)
+
 	cv2.imshow('img', img_original)
 	cv2.imshow('LPF', img_LPF)
+
+	cv2.imshow('HAND', img_hand)
 
 	if np.amax(img_original) < 100:
 		print("NONE")
@@ -57,4 +66,6 @@ while cv2.waitKey(33) != ord('q'):
 
 sc.send("CLOSE")
 sc.close()
+sc2.send("CLOSE")
+sc2.close()
 cv2.destroyAllWindows()

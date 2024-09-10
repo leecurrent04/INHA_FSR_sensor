@@ -3,11 +3,12 @@ import socket
 import numpy as np
 
 class SocketTel:
-	def	__init__(self):
+	def	__init__(self, ip=SOCKET_ADDRESS, port=SOCKET_PORT):
 
 		# 서버에 연결
+		print(ip)
 		self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		self.client_socket.connect((SOCKET_ADDRESS, SOCKET_PORT))
+		self.client_socket.connect((ip, port))
 
 	def send(self, message):
 		request = f"{message}"
@@ -28,7 +29,7 @@ class SocketTel:
 		msg = msg[:-1]
 		self.send(msg)
 
-	def getFsr(self, fsr_list):
+	def getFsr(self, fsr_list, x_max=SENSOR_X_MAX, y_max=SENSOR_Y_MAX):
 		# get data and merge (str)
 		values=""
 		for value in fsr_list:
@@ -41,7 +42,7 @@ class SocketTel:
 				values,
 				dtype=np.uint16,
 				sep=','
-				).reshape(SENSOR_Y_MAX,SENSOR_X_MAX)
+				).reshape(y_max,x_max)
 
 		return fsr_value
 
