@@ -1,0 +1,149 @@
+(footprint "PAD2"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 -1 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "168f4a5d-4b7f-4304-894c-66f5b80f3b85")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "PAD2"
+		(at 0 0.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "91ad2feb-eb37-483b-bae7-e0ffba76909e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 -0.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "529d3412-ecaa-4473-a631-73b84dfc3bdc")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -0.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "83f0669f-7a6c-4178-ab97-87cdb670d66c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 -0.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "18b46430-2d17-42d7-9fd8-31327f20f03a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_text user "${REFERENCE}"
+		(at 0 2 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "21923459-d99c-457f-bc33-e60e31622da1")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd circle
+		(at 0 0 270)
+		(size 2.75 2.75)
+		(layers "F.Cu" "F.Mask")
+		(uuid "81a30945-04b5-4b24-b794-7b5ca4d7bc86")
+	)
+	(pad "2" thru_hole circle
+		(at -5.5 0 270)
+		(size 0.6 0.6)
+		(drill 0.3)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(clearance 0.25)
+		(uuid "d75e8c1f-4b43-408f-a9ee-e6d159c4992d")
+	)
+	(pad "2" smd custom
+		(at -5.5 0 270)
+		(size 0.6 0.6)
+		(layers "F.Cu" "F.Mask")
+		(clearance 0.25)
+		(options
+			(clearance outline)
+			(anchor circle)
+		)
+		(primitives
+			(gr_poly
+				(pts
+					(arc
+						(start 0 1.375)
+						(mid 6.73344 -4.112046)
+						(end 2.71875 -11.814588)
+					)
+					(arc
+						(start 2.71875 -11.814588)
+						(mid 0.912083 -11.09542)
+						(end 1.63125 -9.288753)
+					)
+					(arc
+						(start 1.63125 -9.288753)
+						(mid 4.040064 -4.667228)
+						(end 0 -1.375)
+					)
+					(arc
+						(start 0 -1.375)
+						(mid -4.040064 -4.667228)
+						(end -1.63125 -9.288753)
+					)
+					(arc
+						(start -1.63125 -9.288753)
+						(mid -0.912082 -11.09542)
+						(end -2.71875 -11.814588)
+					)
+					(arc
+						(start -2.71875 -11.814588)
+						(mid -6.733441 -4.112046)
+						(end 0 1.375)
+					)
+				)
+				(width 0)
+				(fill yes)
+			)
+		)
+		(uuid "b534fe5e-7fad-4328-a8a1-1732ab405ea2")
+	)
+)
